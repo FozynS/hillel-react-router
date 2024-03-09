@@ -1,6 +1,8 @@
-import styled from "styled-components";
-import Albums from "../albums/albums";
 import { useState } from "react";
+import Album from "../album/album";
+import useApi from "../../lib/useApi";
+import getAlbums from "../../api/getAlbums";
+import styled from "styled-components";
 
 const Ul = styled.ul`
   display: flex;
@@ -16,8 +18,11 @@ const Button = styled.button`
   margin-left: 20px;
 `;
 
-function UsersList({ users, albums, photos, handleAlbums, handlePhotos, selectedUserId, setSelectedUserId, toggleVisible }) {
-  const [visibleAlbums, setVisibleAlbums] = useState(false);
+function User({ users, selectedUserId, setSelectedUserId }) {
+  const [isVisibleAlbums, setIsVisibleAlbums] = useState(false);
+  const [albums, setAlbums] = useState([]);
+
+  useApi(getAlbums, setAlbums);
 
   return (
     <>
@@ -29,14 +34,12 @@ function UsersList({ users, albums, photos, handleAlbums, handlePhotos, selected
               <br />
               <Button
                 onClick={() => {
-                  toggleVisible(setVisibleAlbums, visibleAlbums);
+                  setIsVisibleAlbums(!isVisibleAlbums);
                   setSelectedUserId(user.id);
-                  handleAlbums(user.id);
                 }}
               >Albums
               </Button>
-
-              {visibleAlbums && selectedUserId === user.id && <Albums albums={albums} photos={photos} handlePhotos={handlePhotos} toggleVisible={toggleVisible}/>}
+              {isVisibleAlbums && selectedUserId === user.id && <Album albums={albums}/>}
             </Li>
           ))
         ) : (
@@ -47,4 +50,4 @@ function UsersList({ users, albums, photos, handleAlbums, handlePhotos, selected
   );
 }
 
-export default UsersList;
+export default User;
