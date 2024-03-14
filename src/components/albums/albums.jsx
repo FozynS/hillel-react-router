@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useApi from "../../lib/useApi";
-import getAlbums from "../../api/getAlbums";
+import getData from "../../api/getData";
 import { Link, useParams } from "react-router-dom";
 import { Row, Col, Button } from "antd";
 
@@ -17,25 +17,33 @@ const style = {
   fontSize: "18px",
 };
 
+const title = {
+  textAlign: 'center'
+}
+
 function Albums() {
   const [albums, setAlbums] = useState([]);
   const { userId } = useParams();
+  const way = `albums?userId=${userId}`;
 
-  useApi(() => getAlbums(userId), setAlbums);
+  useApi(() => getData(way), setAlbums);
 
   return (
-    <Row gutter={[16, 24]} style={{ justifyContent: "center" }}>
-      {albums.map((album) => (
-        <Col className="gutter-row" span={10} key={album.id}>
-          <div style={style}>
-            {album.title}
-            <Link to={`/photos/${album.id}`}>
-              <Button type="dashed">Photos</Button>
-            </Link>
-          </div>
-        </Col>
-      ))}
-    </Row>
+    <>
+      <h1 style={title}>User №{userId} Albums</h1>
+      <Row gutter={[16, 24]} style={{ justifyContent: "center" }}>
+        {albums.map((album) => (
+          <Col className="gutter-row" span={10} key={album.id}>
+            <div style={style}>
+              {album.title}
+              <Link to={`/photos/${album.id}`}>
+                <Button type="dashed">Photos</Button>
+              </Link>
+            </div>
+          </Col>
+        ))}
+      </Row>
+    </>
   );
 }
 

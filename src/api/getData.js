@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const getUsers = async () => {
-  const url = "https://jsonplaceholder.typicode.com/users";
+const getData = async (way) => {
+  const url = `https://jsonplaceholder.typicode.com/${way}`;
   
   try {
     const response = await axios.get(url);
@@ -14,4 +14,4 @@ const getUsers = async () => {
 
 };
 
-export default getUsers;
+export default getData;

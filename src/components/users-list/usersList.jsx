@@ -1,6 +1,6 @@
 import { useState } from "react";
 import User from "../user/user";
-import getUsers from "../../api/getUsers";
+import getData from "../../api/getData";
 import useApi from "../../lib/useApi";
 import { Row } from "antd";
 
@@ -10,8 +10,9 @@ const title = {
 
 function UsersList() {
   const [users, setUsers] = useState([]);
+  const way = 'users';
 
-  useApi(getUsers, setUsers);
+  useApi(() => getData(way), setUsers);
 
   return (
     <>
