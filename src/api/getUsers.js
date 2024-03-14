@@ -1,10 +1,17 @@
 import axios from "axios";
 
 const getUsers = async () => {
-  return axios
-    .get("https://jsonplaceholder.typicode.com/users")
-    .then((response) => response.data)
-    .catch((error) => console.error("Error fetching users: ", error));
+  const url = "https://jsonplaceholder.typicode.com/users";
+  
+  try {
+    const response = await axios.get(url);
+    const data = response.data;
+    return {url, data};
+  } catch (error) {
+    console.error("Error fetching users: ", error);
+    throw error;
+  }
+
 };
 
 export default getUsers;

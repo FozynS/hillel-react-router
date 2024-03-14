@@ -1,19 +1,27 @@
 import { useEffect } from "react";
 
-const useApi = (apiCall, dataSetter) => {
+let cache = {};
+
+const useApi = (api, dataSetter) => {
+  const { url } = api();
+  if(cache[url]) {
+    return dataSetter(cache[url]);
+  }
+
   useEffect(() => {
     let isActive = true;
 
-    apiCall().then((users) => {
+    api().then(({ url, data }) => {
+      cache[url] = data;
       if (isActive) {
-        dataSetter(users);
+        dataSetter(data);
       }
     });
 
     return () => {
       isActive = false;
     };
-  },[]);
+  }, []);
 };
 
 export default useApi;

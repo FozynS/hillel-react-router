@@ -1,9 +1,18 @@
-import Users from "./components/users/users";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Albums from "./components/albums/albums";
+import UsersList from "./components/users-list/usersList";
+import Photos from "./components/photos/photos";
 
 function App() {
   return (
-    <Users/>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<UsersList />} />
+        <Route path="/albums/:userId" element={<Albums />} />
+        <Route path="/photos/:albumId" element={<Photos />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
