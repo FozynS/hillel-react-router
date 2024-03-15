@@ -3,6 +3,7 @@ import User from "../user/user";
 import getData from "../../api/getData";
 import useApi from "../../lib/useApi";
 import { Row } from "antd";
+import { Outlet } from "react-router-dom";
 
 const title = {
   textAlign: 'center'
@@ -22,6 +23,7 @@ function UsersList() {
           <User key={user.id} user={user} />
         ))}
       </Row>
+      <Outlet/>
     </>
   );
 }

@@ -7,9 +7,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<UsersList />} />
-        <Route path="/albums/:userId" element={<Albums />} />
-        <Route path="/photos/:albumId" element={<Photos />} />
+        <Route path="/" element={<UsersList />}>
+          <Route path="albums/:userId" element={<Albums />} > 
+            <Route path="photos/:albumId" element={<Photos />} />
+          </Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

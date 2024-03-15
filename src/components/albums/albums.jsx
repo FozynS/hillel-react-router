@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useApi from "../../lib/useApi";
 import getData from "../../api/getData";
-import { Link, useParams } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import { Row, Col, Button } from "antd";
 
 const style = {
@@ -36,13 +36,14 @@ function Albums() {
           <Col className="gutter-row" span={10} key={album.id}>
             <div style={style}>
               {album.title}
-              <Link to={`/photos/${album.id}`}>
+              <Link to={`photos/${album.id}`}>
                 <Button type="dashed">Photos</Button>
               </Link>
             </div>
           </Col>
         ))}
       </Row>
+      <Outlet/>
     </>
   );
 }

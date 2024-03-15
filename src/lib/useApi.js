@@ -4,12 +4,13 @@ let cache = {};
 
 const useApi = (api, dataSetter) => {
   const { url } = api();
-  if(cache[url]) {
-    return dataSetter(cache[url]);
-  }
 
   useEffect(() => {
     let isActive = true;
+
+    if(cache[url]) {
+      return dataSetter(cache[url]);
+    }
 
     api().then(({ url, data }) => {
       cache[url] = data;
