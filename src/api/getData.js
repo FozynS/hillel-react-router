@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const getData = async (way) => {
-  const url = `https://jsonplaceholder.typicode.com/${way}`;
+const getData = async (apiName) => {
+  const url = `https://jsonplaceholder.typicode.com/${apiName}`;
   
   try {
     const response = await axios.get(url);
